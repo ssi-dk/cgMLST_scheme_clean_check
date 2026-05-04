@@ -53,11 +53,11 @@ def prompt_paths():
     while True:
         cgmlst_scheme = input("""Enter the path to the chewBBACA prepared scheme folder:
 
-    Campylobacter: /users/data/Projects/FBI_SOFI/proj/chewBBACA/Resources/dbs_chewBBACA_3/Campy_oxford_cgMLST_scheme_chewBBACA_sizefilter40_st_6p
-    E. coli: /dpssi/data/Projects/FBI_SOFI/proj/chewBBACA/Resources/dbs_chewBBACA_3/Escherichia_cgMLSTv1_clean_chew_25p
-    C. Difficile: /users/data/Projects/FBI_SOFI/proj/chewBBACA/Resources/dbs_chewBBACA_3/cdiff_cgMLST_ridom_clean_chew_st5p_trn
-    Salmonella: /dpssi/data/Projects/FBI_SOFI/proj/chewBBACA/Resources/dbs_chewBBACA_3/enterobase_Salmonella_cgMLSTv2_230207_clean_chew_st38p
-    Listeria: /users/data/Projects/FBI_SOFI/proj/chewBBACA/Resources/dbs_chewBBACA_3/listeria_bigsdb_cgmlst1748_chewBBACA_sizefilter40_st_5p
+    Campylobacter: dbs_chewBBACA_3/Campy_oxford_cgMLST_scheme_chewBBACA_sizefilter40_st_6p
+    E. coli: dbs_chewBBACA_3/Escherichia_cgMLSTv1_clean_chew_25p
+    C. Difficile: dbs_chewBBACA_3/cdiff_cgMLST_ridom_clean_chew_st5p_trn
+    Salmonella: dbs_chewBBACA_3/enterobase_Salmonella_cgMLSTv2_230207_clean_chew_st38p
+    Listeria: dbs_chewBBACA_3/listeria_bigsdb_cgmlst1748_chewBBACA_sizefilter40_st_5p
 
 Paste the path for the correct species:
 """)
@@ -80,8 +80,8 @@ Paste the path for the correct species:
 
 def run_incremental(config_file):
     print("Running BLAST gene calls, please wait...")
-    incremental_script = "/users/data/Projects/FBI_SOFI/proj/chewBBACA/Tools/scripts/new_per_locus/new/chewbbaca_incremental.py"
-    snakefile_path = "/users/data/Projects/FBI_SOFI/proj/chewBBACA/Tools/scripts/new_per_locus/new/snakefile_genecall.smk"
+    incremental_script = "chewbbaca_incremental.py"
+    snakefile_path = "snakefile_genecall.smk"
 
     run_cmd = [
         "python", incremental_script,
@@ -109,7 +109,7 @@ def run_incremental(config_file):
     return True
 
 def run_chewbbaca(config_file):
-    chew_snakefile = "/users/data/Projects/FBI_SOFI/proj/chewBBACA/Tools/scripts/new_per_locus/new/snakefile_chewbbaca.smk"
+    chew_snakefile = "snakefile_chewbbaca.smk"
     print("Running dryrun for chewBBACA allele calling...")
 
     dry = None
@@ -166,7 +166,7 @@ def run_chewbbaca(config_file):
 def run_plot(config_file):
     print("Gene and allele calls completed, now running dryrun of snakemake to complete distance matrix and plot, please wait...")
 
-    plot_snakefile = "/users/data/Projects/FBI_SOFI/proj/chewBBACA/Tools/scripts/new_per_locus/new/Snakefile_chewBBACA_dist_plot.smk"
+    plot_snakefile = "Snakefile_chewBBACA_dist_plot.smk"
 
     dry = None
     try:
