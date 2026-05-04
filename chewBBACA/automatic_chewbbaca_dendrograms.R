@@ -7,8 +7,6 @@ suppressWarnings(suppressPackageStartupMessages(library(dendextend)))
 suppressWarnings(suppressPackageStartupMessages(library(knitr)))
 suppressWarnings(suppressPackageStartupMessages(library(zCompositions)))
 suppressWarnings(suppressPackageStartupMessages(library(igraph)))
-#suppressWarnings(suppressPackageStartupMessages(library(grDevices)))
-#suppressWarnings(suppressPackageStartupMessages(library(propr)))
 suppressWarnings(suppressPackageStartupMessages(library(foreach)))
 suppressWarnings(suppressPackageStartupMessages(library(readr)))
 suppressWarnings(suppressPackageStartupMessages(library(reshape2)))
@@ -48,14 +46,8 @@ option_list = list(
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
 
-
-
-#setwd("//sdi-calc-fs1.ssi.ad/data/FBI/GenEpiMarch2023/cgMLST/test_chew_071223")
-
 ##read dist mat from cgmlst-dists
-#chew<-data.matrix(read.table("//sdi-calc-fs1.ssi.ad/data/FBI/GenEpiMarch2023/cgMLST/test_chew_071223/dist.tsv", row.names = 1, header = TRUE))
 chew<-data.matrix(read.table(opt$dist, row.names = 1, header = TRUE))
-
 
 ##rename columns and rows 
 colnames(chew)<-colnames(chew)%>%gsub('^X', '', .)
@@ -63,10 +55,7 @@ colnames(chew)<-colnames(chew)%>%gsub('^X', '', .)
 ##build dendrogram 
 d_chew<-as.dendrogram(hclust(as.dist(chew), method="single"))
 
-#as.dendrogram(hclust(as.dist(chew), method="single"))%>%head(n=60) #as text with differences written 
-
 ##cluster colors
-#sampleInfo<-read_table("//sdi-calc-fs1.ssi.ad/data/FBI/GenEpiMarch2023/cgMLST/test_chew_071223/sampleInfo")
 if(!is.null(opt$sample)){
   sampleInfo<-read_table(opt$sampleinfo)
   labels_colors(d_chew) <- sampleInfo$color[match(labels(d_chew), sampleInfo$sample)]
@@ -74,9 +63,7 @@ if(!is.null(opt$sample)){
   labels_colors(d_chew) <- "black"
 }
 
-#pdf(opt$out, width=opt$width, height=opt$height)
 pdf(opt$out)
-#par(mar=c(7,4,4,2), cex.lab=opt$lab, cex=opt$lab)
 plot(d_chew, main=opt$titel)
 for (i in 1:25) {
   abline(h=i, col="black", lty='dotted' )
