@@ -38,5 +38,5 @@ rule blast_gene_call:
         slurm_threads=6
     shell:
         """
-        python /users/data/Projects/FBI_SOFI/proj/chewBBACA/Tools/scripts/new_per_locus/new/blast_gene_call_per_locus_moreChecks_optimized2_skipNonCDS.py --scheme {params.scheme} --fa {input.fasta} --out {params.out}
+        python blast_gene_call_per_locus_moreChecks_optimized2_skipNonCDS.py --scheme {params.scheme} --fa {input.fasta} --out {params.out}
         """
