@@ -29,8 +29,23 @@ options:
   --global-hard-bound GLOBAL_HARD_BOUND
                         Hard bound on |ratio-1|; e.g. 0.6 => [0.4, 1.6]                        
   --extension EXTENSION
-                        FASTA file extension(s) to include (default: .fasta). Can be used multiple times.
+                        FASTA file extension(s) to include (default: .fasta). Can be used multiple times.  
   --strict-extension    If set, only include files ending exactly with provided extensions.
   --out-prefix OUT_PREFIX
                         Prefix for output CSV files (default: allele_lengths)
 ```
+
+
+### Run chewBBACA with blast genecalls and plot dendrogram with R
+
+run chewbbaca_auto.py, 
+- this script runs chewbbaca_incremental.py to check if any new assemblies have been added to the assembly folder, 
+- then the blast gene call with snakefile_genecall.smk, which runs the actual gene calling script blast_gene_call_per_locus_moreChecks_optimized2_skipNonCDS.py,
+- then runs the actual allelecall with snakefile_chewbbaca.smk,
+- lastly plots the dendrogram with Snakefile_chewBBACA_dist_plot.smk which uses the R script automatic_chewbbaca_dendrograms.R
+
+If you need to change the plot after the pipeline is done you can use the second R script change_automatic_chewbbaca_dendrograms.R
+
+
+Remember to change all paths in the scripts. 
+
