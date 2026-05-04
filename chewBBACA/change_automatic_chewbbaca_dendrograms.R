@@ -7,8 +7,6 @@ suppressWarnings(suppressPackageStartupMessages(library(dendextend)))
 suppressWarnings(suppressPackageStartupMessages(library(knitr)))
 suppressWarnings(suppressPackageStartupMessages(library(zCompositions)))
 suppressWarnings(suppressPackageStartupMessages(library(igraph)))
-#suppressWarnings(suppressPackageStartupMessages(library(grDevices)))
-#suppressWarnings(suppressPackageStartupMessages(library(propr)))
 suppressWarnings(suppressPackageStartupMessages(library(foreach)))
 suppressWarnings(suppressPackageStartupMessages(library(readr)))
 suppressWarnings(suppressPackageStartupMessages(library(reshape2)))
@@ -55,12 +53,7 @@ option_list = list(
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
 
-
-
-#setwd("//sshfs.r/niesof@login.ugerm.dksund.dk/users/data/Projects/FBI_species/proj/yersinia/cgMLST_test/chewBBACA")
-
 ##read dist mat from cgmlst-dists
-#chew<-data.matrix(read.table("dist.mat.tsv", row.names = 1, header = TRUE, check.names = FALSE))
 chew<-data.matrix(read.table(opt$dist, row.names = 1, header = TRUE, check.names = FALSE))
 
 
@@ -70,10 +63,8 @@ colnames(chew)<-colnames(chew)%>%gsub('X', '', .)
 ##build dendrogram 
 d_chew<-as.dendrogram(hclust(as.dist(chew), method="single"))
 
-#as.dendrogram(hclust(as.dist(chew), method="single"))%>%head(n=60) #as text with differences written 
 
-##cluster colors
-#sampleInfo<-read_table("//sshfs.r/niesof@login.ugerm.dksund.dk/users/data/Projects/FBI_species/proj/yersinia/reads/sampleInfo.tsv")
+##cluster colours
 if(!is.null(opt$sample)){
   sampleInfo<-read_table(opt$sampleinfo)
   labels_colors(d_chew) <- sampleInfo$color[match(labels(d_chew), sampleInfo$sample)]
@@ -94,16 +85,6 @@ plot(d_chew, main=opt$titel, ylim=c(0,opt$ylim), panel.first={
 })
 dev.off()
 
-
-# 
-# pdf("dendrogram_ST.pdf", height=60, width=160)
-# par(mar=c(7,4,4,2), cex.lab=1.5, cex=1.5)
-# plot(d_chew, main="Yersinia cgMLST", ylim=c(0,150), panel.first={
-#   for (i in 1:25) {
-#     abline(h=i, col="cornsilk3", lty='dotted')
-#   }
-# })
-# dev.off()
 
 
 
